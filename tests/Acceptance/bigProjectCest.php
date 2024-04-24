@@ -100,7 +100,6 @@ class bigProjectCest
         $imgSrc = $I->grabAttributeFrom('html body div.mainwrapper.menuopen div div.rightpanel.project div.primaryContent div.maincontent div.maincontentinner div#kanboard-all.sortableTicketList.kanbanBoard div.row-fluid div.column div.contentInner.status_4.ui-sortable div#ticket_11.ticketBox.moveable.container.priority-border-.ui-sortable-handle div#timerContainer-11.timerContainer div.dropdown.ticketDropdown.userDropdown.noBg.show.right.lastDropdown.dropRight a#userDropdownMenuLink11.dropdown-toggle.f-left span.text span#userImage11 img', 'src');
         $contains2 = str_contains($imgSrc, 'api/users?profileImage=2');
         Assert::assertTrue($contains2 ,"The string 'api/users?profileImage=2'  should be present in the src attribute value. The name should be John Doe");
-
         $I->click('.kanbanCardContent > h4:nth-child(1) > a:nth-child(1)'); ## click the todo on the kanban board
         $I->waitForElementVisible('.nyroModalBg', 5);
         $I->click('#subticket_new_link');
@@ -114,4 +113,42 @@ class bigProjectCest
         $I->click('li.active-result:nth-child(3)'); # Select John Smith
         $I->seeElement('//span[contains(., "John Smith")]');
     }
+
+#[Group('projects')]
+#[Depends('editTestAUser')]
+public function estimateTimeTodo(AcceptanceTester $I)
+{
+    $I->wantTo('Set dates and time tracking ');
+    $I->amOnPage('tickets/showKanban');
+    $I->click('.kanbanCardContent > h4:nth-child(1) > a:nth-child(1)'); ## click the todo on the kanban board
+    $I->waitForElementVisible('.nyroModalBg', 5);
+
+    $I->waitForElementVisible('input#deadline.dates.hasDatepicker', 3 );
+    $I->waitForElementClickable('input#deadline.dates.hasDatepicker', 3 );
+    $startDate = date('m/d/y');
+    $endDate = date("m/d/Y", strtotime("+1 week"));
+    $dueDate =  date("m/d/Y", strtotime("+1 year"));
+
+    $I->click('input#deadline.dates.hasDatepicker'); ## click due date field
+    $I->type($dueDate);
+    $I->click('#dueTime');
+    //    $I->fillField(['id' => 'dueTime'], '10:30');
+    //    $I->fillField(['name' =>'dateToFinish'], $dueDate);
+
+    $I->fillField(['id' => 'dueTime'], '10:30');
+    $I->fillField(['name' =>'editFrom'], $startDate);
+
+    $I->fillField(['id' => 'timeFrom'], '10:30');
+    $I->fillField(['name' =>'editTo'], $endDate);
+
+
+    $I->wait(30);
+
+
+
+
+
+
+
+}
 }
