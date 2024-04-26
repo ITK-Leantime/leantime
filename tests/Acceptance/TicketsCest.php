@@ -29,7 +29,6 @@ class TicketsCest
         $I->waitForElementClickable('#ticketDescription_ifr', 20);
         $I->switchToIFrame('#ticketDescription_ifr');
         $I->waitForElementVisible("#tinymce", 20);
-//        $I->wait(5);
         $I->click("#tinymce");
         $I->type('Test Description');
         $I->switchToIFrame();
@@ -68,7 +67,5 @@ class TicketsCest
             'headline' => 'Test Ticket',
             'description like' => '%Test Description Edited%',
         ]);
-
-        die();
     }
 }
