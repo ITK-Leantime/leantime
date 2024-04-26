@@ -21,7 +21,8 @@ class TicketsCest
         $I->wantTo('Create a ticket');
 
         $I->amOnPage('/tickets/showKanban#/tickets/newTicket');
-        $I->waitForElementVisible(".main-title-input", 20);
+        $I->reloadPage();
+        $I->waitForElementVisible('.main-title-input', 20);
         $I->fillField(["class" => "main-title-input"], 'Test Ticket');
         $I->click('.tagsinput');
         $I->type('test-tag,');
