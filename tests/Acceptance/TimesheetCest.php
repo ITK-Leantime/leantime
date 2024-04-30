@@ -1,25 +1,37 @@
 <?php
 
-namespace Acceptance;
+
+namespace Tests\Acceptance;
 
 use Codeception\Attribute\Depends;
 use Codeception\Attribute\Group;
-use Codeception\Util\Locator;
 use Tests\Support\AcceptanceTester;
+use Tests\Support\Helper\Helper;
 use Tests\Support\Page\Acceptance\Login;
 
 class TimesheetCest
 {
-    public function _before(AcceptanceTester $I, Login $loginPage): void
+    public function _before(AcceptanceTester $I, Helper $helper, Login $loginPage )
     {
+
         $loginPage->login('test@leantime.io', 'test');
+
+
+        if(!Helper::$ticketcreated){
+            $helper->createTicket($I);
+        }
+    }
+
+    // tests
+    public function tryToTest(AcceptanceTester $I)
+    {
     }
 
     /**
      * Create timesheet on my page.
      */
     #[Group('timesheet')]
-    #[Depends('Acceptance\TicketsCest:createTicket')]
+//    #[Depends('Acceptance\TicketsCest:createTicket')] NEEDS to depent to HElper instead
     public function createMyTimesheet(AcceptanceTester $I): void
     {
         $I->wantTo('Add hours to tickets on my timesheet');
@@ -296,6 +308,4 @@ class TimesheetCest
         ]);
 
     }
-
-    public function STOOOOP(AcceptanceTester $I): void {die();}
 }

@@ -145,13 +145,10 @@ public function estimateTimeTodo(AcceptanceTester $I)
 
     $I->wait(30);
 
-
-
-
-
-
-
-
-
 }
+
+    public function STOOOP()
+    {
+        die();
+    }
 }
