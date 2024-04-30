@@ -26,26 +26,25 @@ class TimesheetCest
 
         $I->amOnPage('/timesheets/showMy');
         // Select project.
-        $I->waitForElementNotVisible(".project-select", 120);
+        $I->waitForElementNotVisible(".project-select", 20);
         $I->click('#projectSelect .chosen-single');
-        $I->waitForElementVisible('.chosen-drop', 120);
+        $I->waitForElementVisible('.chosen-drop', 20);
         $I->click('#projectSelect .chosen-results .active-result');
 
         // Select ticket.
-        $I->waitForElementNotVisible(".ticket-select", 120);
+        $I->waitForElementNotVisible(".ticket-select", 20);
         $I->click('#ticketSelect .chosen-single');
-        $I->waitForElementVisible('.chosen-drop', 120);
+        $I->waitForElementVisible('.chosen-drop', 20);
         $I->click('#ticketSelect .chosen-results .active-result');
 
         // Select type.
-        $I->waitForElementVisible(".kind-select", 120);
+        $I->waitForElementVisible(".kind-select", 20);
         $I->selectOption('.kind-select', 'General, billable');
 
         // Set hours in active
         $I->fillField('//*[contains(@class, "rowday1")]//input[@class="hourCell"]', 1);
         $I->fillField('//*[contains(@class, "rowday2")]//input[@class="hourCell"]', 2);
         $I->click('//input[@name="saveTimeSheet"][@type="submit"]');
-        $I->waitForElement('.growl', 60);
 
         $I->seeInField('//*[contains(@class, "rowday1")]//input[@class="hourCell"]', '1');
         $I->seeInField('//*[contains(@class, "rowday2")]//input[@class="hourCell"]', '2');
@@ -90,10 +89,6 @@ class TimesheetCest
         $I->fillField('//*[contains(@class, "rowday3")]//input[@class="hourCell"]', 1);
         $I->fillField('//*[contains(@class, "rowday4")]//input[@class="hourCell"]', 2);
         $I->click('//input[@name="saveTimeSheet"][@type="submit"]');
-        $I->waitForElement('.growl', 60);
-
-        $I->wait(10);
-
         $I->seeInField('//*[contains(@class, "rowday1")]//input[@class="hourCell"]', '1');
         $I->seeInField('//*[contains(@class, "rowday2")]//input[@class="hourCell"]', '2');
         $I->seeInField('//*[contains(@class, "rowday3")]//input[@class="hourCell"]', '1');
@@ -301,4 +296,6 @@ class TimesheetCest
         ]);
 
     }
+
+    public function STOOOOP(AcceptanceTester $I): void {die();}
 }

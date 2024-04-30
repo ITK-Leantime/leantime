@@ -62,7 +62,7 @@ class bigProjectCest
         $I->selectOption('#status', 'a');
         $I->selectOption('#project_4', '4');
         $I->click('Save');
-        $I->waitForElement('.growl', 120);
+        $I->waitForElement('.growl', 20);
         $I->see('User edited successfully');
         $I->wait(2);
     }
@@ -125,24 +125,27 @@ public function estimateTimeTodo(AcceptanceTester $I)
 
     $I->waitForElementVisible('input#deadline.dates.hasDatepicker', 3 );
     $I->waitForElementClickable('input#deadline.dates.hasDatepicker', 3 );
-    $startDate = date('m/d/y');
-    $endDate = date("m/d/Y", strtotime("+1 week"));
-    $dueDate =  date("m/d/Y", strtotime("+1 year"));
+    $dueDate = date('m/d/y');
+    $startDate = date("m/d/Y", strtotime("+1 week"));
+    $endDate =  date("m/d/Y", strtotime("+1 year"));
 
     $I->click('input#deadline.dates.hasDatepicker'); ## click due date field
     $I->type($dueDate);
-    $I->click('#dueTime');
-    //    $I->fillField(['id' => 'dueTime'], '10:30');
-    //    $I->fillField(['name' =>'dateToFinish'], $dueDate);
-
     $I->fillField(['id' => 'dueTime'], '10:30');
+    $I->wait(2);
+//    $I->click(['name' =>'editFrom']);
+//    $I->type($startDate);
+//    $I->wait(10);
     $I->fillField(['name' =>'editFrom'], $startDate);
+    $I->fillField(['name' => 'timeFrom'], '10:30');
+    $I->wait(2);
 
-    $I->fillField(['id' => 'timeFrom'], '10:30');
-    $I->fillField(['name' =>'editTo'], $endDate);
-
+    $I->fillField(['name' =>'timeTo'], $endDate);
+    $I->fillField(['name' => 'editTo'], '10:30');
 
     $I->wait(30);
+
+
 
 
 
