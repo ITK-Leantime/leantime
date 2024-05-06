@@ -78,4 +78,5 @@ class Helper extends \Codeception\Module
 
 
 
+    // Your tests go here
 }

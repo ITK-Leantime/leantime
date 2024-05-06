@@ -41,6 +41,7 @@ class TicketsCest
         $I->seeInDatabase('zp_tickets', [
             'id' => 10,
             'headline' => 'Test Ticket',
+
             'description like' => '%Test Description Edited%',
         ]);
     }
