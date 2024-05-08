@@ -15,19 +15,25 @@ class testCest
     {
         $loginPage->login('test@leantime.io', 'test');
 
-        $fixtures->upLoadProjects($I);
+
         $fixtures->upLoadClients($I);
         $fixtures->upLoadUsers($I);
+        $fixtures->uploadUserProjectRelations($I);
+        $fixtures->upLoadProjects($I);
+        $fixtures->uploadTickets($I);
+        $fixtures->upLoadCanvas($I);
+        $fixtures->uploadCanvasItems($I);
+
+
+
     }
 
-    public function _after(AcceptanceTester $I, Fixtures $fixtures): void
-    {
 
-    }
 
     // tests
     public function tryToTest(AcceptanceTester $I)
     {
+        $I->wait(160);
     }
 
 
