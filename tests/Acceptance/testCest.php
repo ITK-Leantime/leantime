@@ -15,14 +15,7 @@ class testCest
     {
         $loginPage->login('test@leantime.io', 'test');
 
-
-        $fixtures->upLoadClients($I);
-        $fixtures->upLoadUsers($I);
-        $fixtures->uploadUserProjectRelations($I);
-        $fixtures->upLoadProjects($I);
-        $fixtures->uploadTickets($I);
-        $fixtures->upLoadCanvas($I);
-        $fixtures->uploadCanvasItems($I);
+        $fixtures->callAllFixtures($I);
 
 
 

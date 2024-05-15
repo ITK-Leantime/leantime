@@ -7,11 +7,23 @@ namespace Tests\Support\Helper;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
+use DateTime;
+use Leantime\Domain\Widgets\Hxcontrollers\Welcome;
 use Tests\Support\AcceptanceTester;
 
 class Fixtures extends \Codeception\Module
 {
-
+    # All Fixtures in correct loading order
+    public function callAllFixtures(AcceptanceTester $I){
+        $this->upLoadClients($I);
+        $this->upLoadUsers($I);
+        $this->uploadUserProjectRelations($I);
+        $this->upLoadProjects($I);
+        $this->uploadTickets($I);
+        $this->upLoadCanvas($I);
+        $this->uploadCanvasItems($I);
+        $this->uploadTimesheet($I);
+    }
 
     public function upLoadUsers( AcceptanceTester $I)
     {
@@ -214,10 +226,102 @@ class Fixtures extends \Codeception\Module
                 'date' => $now, 'dateToFinish' => $now, 'milestoneid' => 10],
         ];
 
-
-
         foreach ($tickets as $ticket) {
             $I->haveInDatabase('zp_tickets', $ticket);
         }
     }
-}
+
+    public function uploadTimesheet(AcceptanceTester $I)
+    {
+        date_default_timezone_set('Europe/Copenhagen');
+
+
+        $day = date('N');
+
+        $timesheetdata = function ($mon , $tue, $wed, $thu, $fri) {
+            return [
+                ['ticketId' => 19,
+                    'userId' => 1,
+                    'hours' => 3,
+                    'kind' => 'GENERAL_BILLABLE',
+                    'workDate' => date("Y/m/d/h/m/s", strtotime($mon . 'days')),
+                    ],
+                ['ticketId' => 19,
+                    'userId' => 1,
+                    'hours' => 3,
+                    'kind' => 'GENERAL_BILLABLE',
+                    'workDate' => date("Y/m/d/h/m/s", strtotime($tue . 'days')),
+                ],
+                ['ticketId' => 19,
+                    'userId' => 1,
+                    'hours' => 3,
+                    'kind' => 'GENERAL_BILLABLE',
+                    'workDate' => date("Y/m/d/h/m/s", strtotime($wed . 'days')),
+                ],
+                ['ticketId' => 19,
+                    'userId' => 1,
+                    'hours' => 3,
+                    'kind' => 'GENERAL_BILLABLE',
+                    'workDate' => date("Y/m/d/h/m/s", strtotime($thu . 'days')),
+                ],
+                ['ticketId' => 19,
+                    'userId' => 1,
+                    'hours' => 3,
+                    'kind' => 'GENERAL_BILLABLE',
+                    'workDate' => date("Y/m/d/h/m/s", strtotime($fri . 'days')),
+                ],
+            ];
+        };
+
+
+
+        switch ($day) {
+            case '1':
+                echo "It's Monday!";
+                  $timesheets = $timesheetdata('0','1','2', '3','4') ;
+                break;
+            case '2':
+                echo "It's Tuesday!";
+                $timesheets = $timesheetdata('-1','0','1', '2','3') ;
+                break;
+            case '3':
+                echo "It's Wednesday!";
+                $timesheets = $timesheetdata('-2','-1','0', '1','2') ;
+                break;
+            case '4':
+                echo "It's Thursday!";
+                $timesheets = $timesheetdata('-3','-2','-1', '0','1') ;
+                break;
+            case '5':
+                echo "It's Friday!";
+                $timesheets = $timesheetdata('-4','-3','-2', '-1','0') ;
+                break;
+            case '6':
+                echo "It's Saturday!";
+                $timesheets = $timesheetdata('-5','-4','-3', '-2','-1') ;
+                break;
+            case '7':
+                echo "It's Sunday!";
+                $timesheets = $timesheetdata('-6','-5','-4', '-3','-2') ;
+                break;
+            default:
+                break;
+        }
+
+
+
+            foreach ($timesheets as $timesheet) {
+                $I->haveInDatabase('zp_timesheets', $timesheet);
+            }
+        }
+        }
+
+
+
+
+
+
+
+
+
+
