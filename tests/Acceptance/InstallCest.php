@@ -5,13 +5,13 @@ namespace Acceptance;
 use Codeception\Attribute\Depends;
 use Codeception\Attribute\Group;
 use Tests\Support\AcceptanceTester;
+use Tests\Support\Helper\Fixtures;
 use Tests\Support\Page\Acceptance\Install;
 
 class InstallCest
 {
-    public function _before(AcceptanceTester $I)
-    {
-    }
+
+
 
     #[Group('install')]
     public function installPageWorks(AcceptanceTester $I): void

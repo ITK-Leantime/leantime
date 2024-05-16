@@ -13,6 +13,8 @@ use Tests\Support\AcceptanceTester;
 
 class Fixtures extends \Codeception\Module
 {
+    public static bool $fixtures = false;
+
     # All Fixtures in correct loading order
     public function callAllFixtures(AcceptanceTester $I){
         $this->upLoadClients($I);
@@ -23,6 +25,7 @@ class Fixtures extends \Codeception\Module
         $this->upLoadCanvas($I);
         $this->uploadCanvasItems($I);
         $this->uploadTimesheet($I);
+        self::$fixtures = true;
     }
 
     public function upLoadUsers( AcceptanceTester $I)

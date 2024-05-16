@@ -5,14 +5,21 @@ namespace Acceptance;
 use Codeception\Attribute\Depends;
 use Codeception\Attribute\Group;
 use Tests\Support\AcceptanceTester;
+use Tests\Support\Helper\Fixtures;
 use Tests\Support\Helper\Helper;
 use Tests\Support\Page\Acceptance\Login;
 
 class TicketsCest
 {
-    public function _before(AcceptanceTester $I, Login $loginPage, Helper $helper)
+    public function _before(AcceptanceTester $I, Login $loginPage, Helper $helper, Fixtures $fixtures)
     {
         $loginPage->login('test@leantime.io', 'test');
+
+        if(!Fixtures::$fixtures)
+        {
+            $fixtures->callAllFixtures($I);
+        }
+
         if(!Helper::$ticketcreated){
             $helper->createTicket($I);
         }
