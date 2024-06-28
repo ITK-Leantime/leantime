@@ -1946,6 +1946,13 @@ input.small {
     float: right;
 }
 
+.flex-end-container {
+    gap: 5px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .moveable.right,
 .ticketBox.right {
     float: none;

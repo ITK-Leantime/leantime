@@ -642,28 +642,24 @@ leantime.ticketsController = (function () {
 
     };
 
-    var initUserDropdown = function () {
-
+    const initUserDropdown = function () {
         jQuery(".userDropdown .dropdown-menu a").unbind().on("click", function () {
-
-                var dataValue = jQuery(this).attr("data-value").split("_");
-                var dataLabel = jQuery(this).attr('data-label');
-
+            const dataValue = jQuery(this).attr("data-value").split("_");
+            const dataLabel = jQuery(this).attr('data-label');
+debugger
             if (dataValue.length === 3) {
-                var ticketId = dataValue[0];
-                var userId = dataValue[1];
-                var profileImageId = dataValue[2];
+                const ticketId = dataValue[0];
+                const userId = dataValue[1];
 
                 jQuery.ajax(
                     {
                         type: 'PATCH',
                         url: leantime.appUrl + '/api/tickets',
-                        data:
-                            {
-                                id : ticketId,
-                                editorId:userId
+                        data: {
+                            id : ticketId,
+                            editorId: userId
                         }
-                        }
+                    }
                 ).done(
                     function () {
                         jQuery("#userDropdownMenuLink" + ticketId + " span.text span#userImage" + ticketId + " img").attr("src", leantime.appUrl + "/api/users?profileImage=" + userId);

@@ -480,7 +480,7 @@ body {
     padding:14px; /* account for 1px border */
     margin-bottom:20px;
     box-shadow: var(--large-shadow);
-
+    overflow: visible;
     border: var(--glass-border);
 }
 

@@ -146,7 +146,7 @@
                                         />
                                     </div>
                                     <div class="col-md-8 tw-mt-[3px]">
-                                        <div class="right">
+                                        <div class="flex-end-container">
                                             <div class="dropdown ticketDropdown effortDropdown show">
                                                 <a
                                                     class="dropdown-toggle f-left label-default effort"
@@ -241,6 +241,31 @@
                                                                 id="ticketStatusChange{{ $row['id'] . $key }}"
                                                             >{{ $label['name'] }}</a>
                                                         </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown ticketDropdown userDropdown noBg lastDropdown" style="margin-top: 0">
+                                                <a class="dropdown-toggle f-left" href="javascript:void(0);" role="button" id="userDropdownMenuLink<?=$row['id']?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="text">
+                                                        <?php if ($row["editorFirstname"] != "") {
+                                                            echo "<span id='userImage" . $row['id'] . "'>"
+                                                                . "<img src='" . BASE_URL . "/api/users?profileImage=" . $row['editorId'] . "' width='25' "
+                                                                . "style='vertical-align: middle;'/></span><span id='user" . $row['id'] . "'></span>";
+                                                        } else {
+                                                            echo "<span id='userImage" . $row['id'] . "'><img src='" . BASE_URL
+                                                                . "/api/users?profileImage=false' width='25' "
+                                                                . "style='vertical-align: middle;'/></span><span id='user" . $row['id'] . "'></span>";
+                                                        } ?>
+                                                    </span>
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="userDropdownMenuLink<?=$row['id']?>">
+                                                    <li class="nav-header border"><?=$tpl->__("dropdown.choose_user")?></li>
+                                                    @foreach ($allUsers as $user)
+                                                    <li class="dropdown-item">
+                                                        <a href="javascript:void(0)" data-value="{{ $row['id'] }}_{{ $user['id'] }}">
+                                                            {{$user['firstname']}} {{$user['lastname']}}
+                                                        </a>
+                                                    </li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -399,7 +424,7 @@
                                         </div>
 
                                         <div class="commentLinks">
-                                            <small class="right">
+                                            <small class="right" style="display: flex; justify-content: flex-start; align-items: flex-end;">
                                                 {!! sprintf(
                                                     __('text.written_on_by'),
                                                     format($row['date'])->date(),
@@ -540,6 +565,7 @@
             leantime.ticketsController.initEffortDropdown();
             leantime.ticketsController.initMilestoneDropdown();
             leantime.ticketsController.initStatusDropdown();
+            leantime.ticketsController.initUserDropdown();
             leantime.usersController.initUserEditModal();
         @else
             leantime.authController.makeInputReadonly(".maincontentinner");
